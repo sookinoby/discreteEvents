@@ -8,7 +8,6 @@ package com.unbc.main;
 
 import com.unbc.core.models.Event;
 import com.unbc.core.models.EventQueue;
-import com.unbc.core.models.HandlerCreateNewEvent;
 import com.unbc.core.models.Node;
 import com.unbc.core.models.NodeState;
 import com.unbc.utils.RandomGenerator;
