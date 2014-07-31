@@ -15,7 +15,7 @@ public class Scheduler implements Runnable{
     volatile Boolean shouldRun = true;
     @Override
     public void run() {
-        while(true)
+        while(shouldRun)
     // pick up a event from event queue;
         {
         Event E = EventQueue.removeNextEvent();
@@ -27,6 +27,7 @@ public class Scheduler implements Runnable{
         }
         else {
             shouldRun = false;
+            System.out.println("The simulation has ended, no more Events to Process");
         }
        
         }
