@@ -22,7 +22,7 @@ public class Scheduler implements Runnable{
      //process the event by call its handler method
         if(null != E)
         {
-         System.out.println("The event details"+ E.toString());
+         System.out.println("The event details "+ E.toString());
         E.getMethodToInovke().handler(E);
         }
         else {
