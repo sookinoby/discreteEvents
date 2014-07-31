@@ -27,7 +27,7 @@ public class Event implements Comparable<Event>{
         this.finishTime = finishTime;
         this.nodeReference = nodeReference;
         this.stateReference = stateReference;
-        this.methodToInovke = new HandlerCreateNewEvent();
+        this.methodToInovke = new HandlerRandomWayPoint();
     }
     
     public HandlerMethodI getMethodToInovke() {
@@ -73,7 +73,7 @@ public class Event implements Comparable<Event>{
     public String toString()
     {
         StringBuilder br = new StringBuilder();
-        br.append("Node id : ").append(this.getNodeReference().getId()).append(" , Node position").append(this.stateReference.toString()).append("\n");
+        br.append("Node id : ").append(this.getNodeReference().getId()).append(" ,").append(this.stateReference.toString()).append("\n").append(" ,Arrival :").append(this.getArrivalTime()).append(" ,Finish :").append(this.getFinishTime());
         return br.toString();
     }
     

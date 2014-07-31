@@ -31,7 +31,8 @@ public class RandomGenerator {
     }
     public static float getVelocityFromNormalDistribution()
     {
-        RandomEngine rn = new DRand();
+        Random ran = new Random();
+        RandomEngine rn = new DRand(ran.nextInt());
         Normal normal = new Normal(SimulationParameters.VELOCITY_MEAN, SimulationParameters.VELOCITY_VARIANCE, rn);
         float velocity = (float)normal.nextDouble();
         return velocity;

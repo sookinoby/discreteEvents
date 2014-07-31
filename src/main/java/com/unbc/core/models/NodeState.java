@@ -115,12 +115,13 @@ public class NodeState {
     public void setAngleInDegree(float angleInDegree) {
         this.angleInDegree = angleInDegree;
     }
-    
+  
     @Override
     public String toString ()
     {
+        float equatedVelocity =  (velocity < .02) ? 0 : velocity;
         StringBuilder br = new StringBuilder();
-        br.append(" current postion : ").append(currentPosition.toString()).append(" ,velocity : ").append(velocity).append(" ,Angle In Degrees :").append(angleInDegree);
+        br.append(" current postion : ").append(currentPosition.toString()).append(" ,velocity : ").append(equatedVelocity).append(" ,Direction: ").append(angleInDegree);
         return br.toString();
     }
     

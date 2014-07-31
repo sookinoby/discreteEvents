@@ -31,8 +31,6 @@ public class DiscreteEventsMain {
         {
             Node a = new Node("one", i);
             Point2D.Float current = RandomGenerator.getRandomPosition();
-            Point2D.Float destination = RandomGenerator.getRandomPosition();
-            Float velocity = RandomGenerator.getVelocityFromNormalDistribution();
             NodeState state;
              try {
                  state = new NodeState(a, current, NodeState.StateType.PASSIVE,1);

@@ -17,5 +17,5 @@ public class SimulationParameters {
     public static int HEIGHT_SIMULATION_AREA = 2000;
     public static int WIDTH_SIMULATION_AREA = 2000;
     public static int VELOCITY_MEAN = 10;
-    public static int VELOCITY_VARIANCE = 5;
+    public static int VELOCITY_VARIANCE = 8;
 }
