@@ -49,7 +49,7 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
                 Float velocity = state.getVelocity();
                 float finishTime = GeoMathFunctions.distanceBetWeenTwoPoint(current, state.getDestination())/velocity;
                 Event e = new Event(arrivalTime,arrivalTime + finishTime, a, state,previous.getMobilityType());
-                 EventQueue.addEvent(e);
+                EventQueue.addEvent(e);
             } catch (Exception ex) {
                 Logger.getLogger(HandlerRandomWayPoint.class.getName()).log(Level.SEVERE, null, ex);
             }

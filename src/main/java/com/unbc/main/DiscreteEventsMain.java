@@ -37,7 +37,7 @@ public class DiscreteEventsMain {
                  state = new NodeState(a, current, NodeState.StateType.PASSIVE,1);
                  a.addState(state);
                  nodes[i] = a;
-                 Event e = new Event(0,0, a, state,MobilityType.RANDOMWAYPOINT);
+                 Event e = new Event(0,0, a, state,MobilityType.RANDOMWALK);
                  EventQueue.addEvent(e);
              } catch (Exception ex) {
                  Logger.getLogger(DiscreteEventsMain.class.getName()).log(Level.SEVERE, null, ex);
