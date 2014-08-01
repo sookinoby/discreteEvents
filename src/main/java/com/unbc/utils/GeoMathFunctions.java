@@ -21,9 +21,15 @@ public class GeoMathFunctions {
 
     }
       
-     public static float distanceBetWeenTwoPoint(Point2D.Float currentPosition, Point2D.Float destination)
+    public static float distanceBetWeenTwoPoint(Point2D.Float currentPosition, Point2D.Float destination)
     {
         return (float) Point2D.distance(currentPosition.x, currentPosition.y, destination.x,destination.y);
+
+    }
+    
+        public static float findOppositetUsingAngle(float adjacent, float AngleInDegrees)
+    {
+        return (float) Math.tan(Math.toRadians(AngleInDegrees)) * adjacent;
 
     }
     

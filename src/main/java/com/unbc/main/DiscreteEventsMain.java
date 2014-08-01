@@ -8,6 +8,7 @@ package com.unbc.main;
 
 import com.unbc.core.models.Event;
 import com.unbc.core.models.EventQueue;
+import com.unbc.core.models.MobilityType;
 import com.unbc.core.models.Node;
 import com.unbc.core.models.NodeState;
 import com.unbc.utils.RandomGenerator;
@@ -36,7 +37,7 @@ public class DiscreteEventsMain {
                  state = new NodeState(a, current, NodeState.StateType.PASSIVE,1);
                  a.addState(state);
                  nodes[i] = a;
-                 Event e = new Event(0,0, a, state);
+                 Event e = new Event(0,0, a, state,MobilityType.RANDOMWAYPOINT);
                  EventQueue.addEvent(e);
              } catch (Exception ex) {
                  Logger.getLogger(DiscreteEventsMain.class.getName()).log(Level.SEVERE, null, ex);

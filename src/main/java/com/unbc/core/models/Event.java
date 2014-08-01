@@ -21,14 +21,24 @@ public class Event implements Comparable<Event>{
      private float finishTime;
      private NodeState stateReference;
      private HandlerMethodI methodToInovke;
+     private MobilityType mobilityType;
    
-    public Event(float arrivalTime,float finishTime, Node nodeReference, NodeState stateReference) {
+    public Event(float arrivalTime,float finishTime, Node nodeReference, NodeState stateReference,MobilityType move) {
         this.arrivalTime = arrivalTime;
         this.finishTime = finishTime;
         this.nodeReference = nodeReference;
         this.stateReference = stateReference;
+        if(MobilityType.RANDOMWAYPOINT == move)
+        {
+        this.mobilityType = move;
         this.methodToInovke = new HandlerRandomWayPoint();
-    }
+        }
+        if(MobilityType.RANDOMWALK == move)
+        {
+        this.mobilityType = move;
+        this.methodToInovke = new RandomWalkHandler();
+        }
+     }
     
     public HandlerMethodI getMethodToInovke() {
         return methodToInovke;
@@ -73,14 +83,23 @@ public class Event implements Comparable<Event>{
     public String toString()
     {
         StringBuilder br = new StringBuilder();
-        br.append("Node id : ").append(this.getNodeReference().getId()).append(" ,").append(this.stateReference.toString()).append("\n").append(" ,Arrival :").append(this.getArrivalTime()).append(" ,Finish :").append(this.getFinishTime());
+        br.append("Node id : ").append(this.getNodeReference().getId()).append(" ,").append(this.stateReference.toString()).append(" ,Arrival :").append(this.getArrivalTime()).append(" ,Finish :").append(this.getFinishTime());
         return br.toString();
     }
+
+    public MobilityType getMobilityType() {
+        return mobilityType;
+    }
+
+    public void setMobilityType(MobilityType mobilityType) {
+        this.mobilityType = mobilityType;
+    }
     
+       
 
     @Override
     public int compareTo(Event o) {
-       if( this.getFinishTime()< this.getFinishTime())
+       if( this.getFinishTime() < o.getFinishTime())
            return -1;
        else 
            return 1;

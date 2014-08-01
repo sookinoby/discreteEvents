@@ -4,14 +4,17 @@
  * and open the template in the editor.
  */
 
-package com.unbc.core.models;
+package com.unbc.utils;
 
 /**
  *
  * @author sooki
  */
-public interface HandlerMethodI {
+public class Helper {
     
-    public void handler(Event prev);
+    public static boolean isNear(float x,float toCheck)
+    {
+        return Math.abs(x-toCheck) < 0.2;
+    }
     
 }

@@ -21,7 +21,7 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
 
     /**
  * This  method is invoked when a node reaches its destination. It is assumed
- * that when a event is completely proccessed when a node reaches its destination.
+ * that when a event is almost completely proccessed when a node reaches its destination.
  * When a event is processed it invokes the handler of that event(here previous event)
  * The previous event causes a new event to be added to the event queue.
  * Does not return anything, but may add a event to event queue depending on
@@ -41,14 +41,14 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
         {
          
             try {
-                state = new NodeState(a, current, NodeState.StateType.PASSIVE,4);
+                state = new NodeState(a, current, NodeState.StateType.PASSIVE,1);
                 a.addState(state);
                 // Not generating new velocity, since in passive state the velocity is almost zero and it is generated as part of 
                 // node state constructs
                 // Query back the velocity that was set by the NodeState construct;
                 Float velocity = state.getVelocity();
                 float finishTime = GeoMathFunctions.distanceBetWeenTwoPoint(current, state.getDestination())/velocity;
-                Event e = new Event(arrivalTime,arrivalTime + finishTime, a, state);
+                Event e = new Event(arrivalTime,arrivalTime + finishTime, a, state,previous.getMobilityType());
                  EventQueue.addEvent(e);
             } catch (Exception ex) {
                 Logger.getLogger(HandlerRandomWayPoint.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,7 +63,7 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
             a.addState(state);
             float finishTime = GeoMathFunctions.distanceBetWeenTwoPoint(current, destination)/velocity;
             // add a new event to the EventQueue
-            Event e = new Event(arrivalTime, arrivalTime + finishTime, a, state);
+            Event e = new Event(arrivalTime, arrivalTime + finishTime, a, state,previous.getMobilityType());
             EventQueue.addEvent(e);
         }
      

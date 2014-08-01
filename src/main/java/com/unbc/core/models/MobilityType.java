@@ -10,8 +10,6 @@ package com.unbc.core.models;
  *
  * @author sooki
  */
-public interface HandlerMethodI {
-    
-    public void handler(Event prev);
-    
+public enum MobilityType {
+    RANDOMWALK,RANDOMWAYPOINT;
 }

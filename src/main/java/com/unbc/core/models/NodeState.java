@@ -51,7 +51,7 @@ public class NodeState {
        if(stateType == StateType.PASSIVE)
         {
             this.destination.setLocation(currentPosition.x+0.01, currentPosition.y+0.01);
-            this.velocity =GeoMathFunctions.distanceBetWeenTwoPoint(this.currentPosition, this.destination)/pauseTime;
+            this.velocity = GeoMathFunctions.distanceBetWeenTwoPoint(this.currentPosition, this.destination)/pauseTime;
             this.angleInDegree = 0.0f;
         }
        else if(stateType == StateType.ACTIVE)
@@ -121,7 +121,7 @@ public class NodeState {
     {
         float equatedVelocity =  (velocity < .02) ? 0 : velocity;
         StringBuilder br = new StringBuilder();
-        br.append(" current postion : ").append(currentPosition.toString()).append(" ,velocity : ").append(equatedVelocity).append(" ,Direction: ").append(angleInDegree);
+        br.append(" current pos : ").append("(").append(Math.floor(currentPosition.x)).append(",").append(Math.floor(currentPosition.y)).append(") ").append(" destination pos : ").append("(").append(Math.floor(destination.x)).append(",").append(Math.floor(destination.y)).append(") ").append(" ,velocity : ").append(equatedVelocity).append(" ,Direction: ").append(angleInDegree);
         return br.toString();
     }
     
