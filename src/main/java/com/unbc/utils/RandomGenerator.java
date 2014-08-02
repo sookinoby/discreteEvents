@@ -46,7 +46,7 @@ public class RandomGenerator {
         ran = new Random();
         int y = getRandomNumberBetweenZeroAndX(100);
         if(y % 2 == 0 )
-            y = SimulationParameters.HEIGHT_SIMULATION_AREA+1;
+            y = SimulationParameters.HEIGHT_SIMULATION_AREA;
         else
             y=0;
         return new Point2D.Float((float)x, (float)y);
@@ -59,7 +59,7 @@ public class RandomGenerator {
         ran = new Random();
         int x = getRandomNumberBetweenZeroAndX(100);
         if(x % 2 == 0 )
-            y = SimulationParameters.WIDTH_SIMULATION_AREA+1;
+            x = SimulationParameters.WIDTH_SIMULATION_AREA;
         else
             x = 0;
         return new Point2D.Float((float)x, (float)y);

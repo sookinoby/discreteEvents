@@ -6,14 +6,12 @@
 
 package com.unbc.core.models;
 
-import com.unbc.main.SimulationInit;
+
 import com.unbc.main.SimulationParameters;
 import com.unbc.utils.GeoMathFunctions;
 import com.unbc.utils.Helper;
 import com.unbc.utils.RandomGenerator;
 import java.awt.geom.Point2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +44,7 @@ public class RandomWalkHandler implements HandlerMethodI{
             if(previous.getStateReference().getStateType() == NodeState.StateType.PASSIVE)
             {
         // this is for active events
-            int ran= RandomGenerator.getRandomNumberBetweenZeroAndX(100);
+           /* int ran= RandomGenerator.getRandomNumberBetweenZeroAndX(100);
             if(ran % 2 == 0)
             {
              destination = RandomGenerator.getRandomPositionAlongX();
@@ -54,7 +52,9 @@ public class RandomWalkHandler implements HandlerMethodI{
             else
             {
              destination = RandomGenerator.getRandomPositionAlongY();
-            }
+            } */
+                // these edit for made for checking. by sooki
+            destination = new Point2D.Float(20,100);
             Float velocity = RandomGenerator.getVelocityFromNormalDistribution();
             state = new NodeState(a,current,destination,velocity);
             a.addState(state);
@@ -73,15 +73,26 @@ public class RandomWalkHandler implements HandlerMethodI{
                      float x = previous.getStateReference().getDestination().x;
                      float remainingDistance = SimulationParameters.WIDTH_SIMULATION_AREA - x;
                      float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
-                     float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, previous_angle_in_degree);
+                     float angle_of_reflection = -previous_angle_in_degree;
+                     float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, angle_of_reflection);
                      float y;
                     
-                     if(opposite > 0)
-                     y = SimulationParameters.HEIGHT_SIMULATION_AREA - opposite;
-                     else{
-                         y = Math.abs(opposite);
+                     opposite = Math.abs(opposite);
+                     if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                     {
+                         // this means the angle was too steep and incerpt is not at the x axis (right side). But at the y = 
+                         
                      }
-                     destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,y);
+                     y = SimulationParameters.HEIGHT_SIMULATION_AREA - opposite;
+                     if(y < 0)
+                         y = 0;
+                     if( y > 100 )
+                         y = SimulationParameters.HEIGHT_SIMULATION_AREA;
+                     if(previous_angle_in_degree < 90 && previous_angle_in_degree > -90 )
+                         x = SimulationParameters.WIDTH_SIMULATION_AREA;
+                     else
+                         x = 0;
+                     destination = new Point2D.Float(x,y);
                      Float velocity = previous.getStateReference().getVelocity();
                      state = new NodeState(a,current,destination,velocity);
                      a.addState(state);
@@ -96,15 +107,21 @@ public class RandomWalkHandler implements HandlerMethodI{
                      float y = previous.getStateReference().getDestination().y;
                      float remainingDistance = SimulationParameters.HEIGHT_SIMULATION_AREA - y;
                      float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
-                     float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, previous_angle_in_degree);
+                     float angle_of_reflection = -previous_angle_in_degree;
+                     float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, angle_of_reflection);
                      float x;
                     
-                     if(opposite > 0)
-                     x = SimulationParameters.WIDTH_SIMULATION_AREA - opposite;
-                     else{
-                        x = Math.abs(opposite);
-                     }
-                     destination = new Point2D.Float(x,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                     System.out.println("height" + opposite);
+                     x = SimulationParameters.WIDTH_SIMULATION_AREA - Math.abs(opposite);
+                       if(x < 0)
+                         x = 0;
+                     if( x > 100 )
+                         x = SimulationParameters.HEIGHT_SIMULATION_AREA;
+                     if(previous_angle_in_degree < 90 && previous_angle_in_degree > -90 )
+                         y = SimulationParameters.WIDTH_SIMULATION_AREA;
+                     else
+                         y = 0;
+                     destination = new Point2D.Float(x,y);
                      Float velocity = previous.getStateReference().getVelocity();
                      state = new NodeState(a,current,destination,velocity);
                      a.addState(state);
@@ -119,3 +136,5 @@ public class RandomWalkHandler implements HandlerMethodI{
     }
     
 }
+
+// The code here is not working ,  I am planning to write something thats easy and better

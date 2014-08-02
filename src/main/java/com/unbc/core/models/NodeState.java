@@ -44,7 +44,7 @@ public class NodeState {
 
     public NodeState(Node nodeReference, Point2D.Float currentPosition, Point2D.Float destination, float velocity) {
        this(nodeReference,currentPosition,destination,velocity,StateType.ACTIVE);
-       angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(this.destination, this.currentPosition);
+       angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(this.currentPosition,this.destination);
     }
      public NodeState(Node nodeReference, Point2D.Float currentPosition,StateType stateType,float pauseTime ) throws Exception {
        this(nodeReference,currentPosition,new Point2D.Float(),0.0f,stateType);
