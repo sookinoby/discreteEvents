@@ -27,10 +27,28 @@ public class GeoMathFunctions {
 
     }
     
-        public static float findOppositetUsingAngle(float adjacent, float AngleInDegrees)
+        public static float findOppositetUsingAngle(float adjacent_side, float AngleInDegrees)
     {
-        return (float) Math.tan(Math.toRadians(AngleInDegrees)) * adjacent;
+        return (float) Math.tan(Math.toRadians(AngleInDegrees)) * adjacent_side;
 
     }
-    
+        
+     public static float findHypotenuseUsingAdjacentAngel(float adjacent_side, float AngleInDegrees)
+    {
+        return (float) Math.cos(Math.toRadians(AngleInDegrees)) * adjacent_side;
+        
+
+    }
+    public static float findOppositeGivenAdjacent(float adjacent_side, float AngleInDegrees)
+    {
+        return (float) Math.tan(Math.toRadians(AngleInDegrees)) * adjacent_side;
+        
+
+    }
+      public static float findAdjacentUsingOpposite(float oppositeSide, float AngleInDegrees)
+    {
+        return (float) ((float)  oppositeSide / Math.tan(Math.toRadians(AngleInDegrees))) ;
+        
+
+    }
 }

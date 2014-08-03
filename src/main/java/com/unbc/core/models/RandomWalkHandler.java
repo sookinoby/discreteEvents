@@ -12,6 +12,7 @@ import com.unbc.utils.GeoMathFunctions;
 import com.unbc.utils.Helper;
 import com.unbc.utils.RandomGenerator;
 import java.awt.geom.Point2D;
+import sun.java2d.loops.GraphicsPrimitive;
 
 /**
  *
@@ -40,7 +41,7 @@ public class RandomWalkHandler implements HandlerMethodI{
             float arrivalTime = previous.getFinishTime();
             Point2D.Float current = previous.getStateReference().getDestination();
             NodeState state;
-            Point2D.Float destination;
+            Point2D.Float destination = null;
             if(previous.getStateReference().getStateType() == NodeState.StateType.PASSIVE)
             {
         // this is for active events
@@ -63,7 +64,194 @@ public class RandomWalkHandler implements HandlerMethodI{
             Event e = new Event(arrivalTime, arrivalTime + finishTime, a, state,previous.getMobilityType());
             EventQueue.addEvent(e);
             }
-            else{
+            else {
+                  float current_x = (float)previous.getStateReference().getDestination().getX();
+                  float current_y = (float)previous.getStateReference().getDestination().getY();
+                // this code is for part where y bound is reached
+                if( Helper.isNear(current_y, 0))
+                {
+                     float x = previous.getStateReference().getDestination().x;
+                     float remainingDistance = SimulationParameters.WIDTH_SIMULATION_AREA - x;
+                     float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
+                     // check if mobile node is going up and moving toward first qudarant. Please remember the quadrant is inverted
+                     float adjacentX;
+                     if(previous_angle_in_degree > -90 && previous_angle_in_degree < 0)
+                     {
+                          float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, abs_previous_angle);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                          {   
+                            adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, abs_previous_angle);
+                            destination = new Point2D.Float(x+adjacentX,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                          }
+                          else{
+                                destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,opposite);
+                          }
+                     }
+                        // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
+                     else if  (previous_angle_in_degree <= -90 && previous_angle_in_degree >= -180)
+                     {
+                           float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                           float calculated = 180 - abs_previous_angle;
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, calculated);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                          {   
+                            adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, calculated);
+                            destination = new Point2D.Float(x-adjacentX,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                          }
+                          else{
+                                destination = new Point2D.Float(0,opposite);
+                          }
+                     }
+                          
+                }// this code is for part where y bound height is reached
+                else if( Helper.isNear(current_y, SimulationParameters.HEIGHT_SIMULATION_AREA))
+                {
+                     float x = previous.getStateReference().getDestination().x;
+                     float remainingDistance = SimulationParameters.WIDTH_SIMULATION_AREA - x;
+                     float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
+                     // check if mobile node is going up and moving toward first qudarant. Please remember the quadrant is inverted
+                     float adjacentX;
+                     if(previous_angle_in_degree > 0 && previous_angle_in_degree < 90)
+                     {
+                          float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                         
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, abs_previous_angle);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                          {   
+                            adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, abs_previous_angle);
+                            destination = new Point2D.Float(x+adjacentX,0);
+                          }
+                          else{
+                                destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,SimulationParameters.HEIGHT_SIMULATION_AREA-opposite);
+                          }
+                     }
+                        // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
+                     else if  (previous_angle_in_degree <= 90 && previous_angle_in_degree >= 180)
+                     {
+                          float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                          float calculated = 180 - abs_previous_angle;
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, calculated);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                          {   
+                            adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, calculated);
+                            destination = new Point2D.Float(x-adjacentX,0);
+                          }
+                          else{
+                                destination = new Point2D.Float(SimulationParameters.HEIGHT_SIMULATION_AREA-opposite,0);
+                          }
+                     }
+                          
+                }
+                 if( Helper.isNear(current_x, 0))
+                {
+                     float x = previous.getStateReference().getDestination().x;
+                     float y = previous.getStateReference().getDestination().y;
+                     float remainingDistance = SimulationParameters.HEIGHT_SIMULATION_AREA - y;
+                     float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
+                     // check if mobile node is going up and moving toward first qudarant. Please remember the quadrant is inverted
+                     float adjacentY;
+                     if(previous_angle_in_degree > 90 && previous_angle_in_degree < 180)
+                     {
+                          float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                          float calculated = 180 - abs_previous_angle;
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, calculated);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.WIDTH_SIMULATION_AREA)
+                          {   
+                            adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.WIDTH_SIMULATION_AREA, calculated);
+                            destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,y+adjacentY);
+                          }
+                          else{
+                                destination = new Point2D.Float(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                          }
+                     }
+                        // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
+                     else if  (previous_angle_in_degree <= -90 && previous_angle_in_degree >= -180)
+                     {
+                           float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                           float calculated = 180 - abs_previous_angle;
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, calculated);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.WIDTH_SIMULATION_AREA)
+                          {   
+                            adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.WIDTH_SIMULATION_AREA, calculated);
+                            destination = new Point2D.Float(SimulationParameters.HEIGHT_SIMULATION_AREA,y-adjacentY);
+                          }
+                          else{
+                                destination = new Point2D.Float(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                          }
+                     }
+                          
+                }
+                else if( Helper.isNear(current_x, SimulationParameters.WIDTH_SIMULATION_AREA))
+                {
+                     float y = previous.getStateReference().getDestination().x;
+                     float remainingDistance = SimulationParameters.HEIGHT_SIMULATION_AREA - y;
+                     float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
+                     // check if mobile node is going up and moving toward first qudarant. Please remember the quadrant is inverted
+                     float adjacentY;
+                     if(previous_angle_in_degree > 0 && previous_angle_in_degree < 90)
+                     {
+                          float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                         
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, abs_previous_angle);
+                          // now check if opposite is too big.
+                          if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                          {   
+                            adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, abs_previous_angle);
+                            destination = new Point2D.Float(0,y + adjacentY);
+                          }
+                          else{
+                                destination = new Point2D.Float(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                          }
+                     }
+                        // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
+                     else if  (previous_angle_in_degree > -90 && previous_angle_in_degree < 0)
+                     {
+                          float abs_previous_angle = Math.abs(previous_angle_in_degree);
+                          float calculated = 180 - abs_previous_angle;
+                          float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, calculated);
+                                                  // now check if opposite is too big.
+                          if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
+                          {   
+                            adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, calculated);
+                            destination = new Point2D.Float(0,y-adjacentY);
+                          }
+                          else{
+                                destination = new Point2D.Float(0,SimulationParameters.WIDTH_SIMULATION_AREA-opposite);
+                          }
+                     }
+                          
+                }
+                
+            if(null != destination)
+             {
+             Float velocity = RandomGenerator.getVelocityFromNormalDistribution();
+             state = new NodeState(a,current,destination,velocity);
+            a.addState(state);
+            float finishTime = GeoMathFunctions.distanceBetWeenTwoPoint(current, destination)/velocity;
+            // add a new event to the EventQueue
+            Event e = new Event(arrivalTime, arrivalTime + finishTime, a, state,previous.getMobilityType());
+            EventQueue.addEvent(e);
+             }
+                
+            }
+            
+         
+     
+    }
+    
+}
+
+// The code here is not working ,  I am planning to write something thats easy and better
+/*
+
+   else{
                 // check if reaching the height bounds, then reflect by changing the angle by -(angle). Then calculate the destination from angle.
                 // The parameter we know. the displacement along x axis(the intercept) which can now be used to calculate remaining distance.
                 float current_y = (float)previous.getStateReference().getCurrentPosition().getY();
@@ -75,21 +263,21 @@ public class RandomWalkHandler implements HandlerMethodI{
                      float previous_angle_in_degree = previous.getStateReference().getAngleInDegree();
                      float angle_of_reflection = -previous_angle_in_degree;
                      float opposite = GeoMathFunctions.findOppositetUsingAngle(remainingDistance, angle_of_reflection);
+                     float adjacent_side;
                      float y;
                     
                      opposite = Math.abs(opposite);
                      if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                      {
-                         // this means the angle was too steep and incerpt is not at the x axis (right side). But at the y = 
+                         // this means the angle was too steep and incerpt is not at the x axis (right side). 
+                         float adjacent_angle = 90.0f - Math.abs(angle_of_reflection);
+                         adjacent_side = GeoMathFunctions.findOppositeGivenAdjacent(SimulationParameters.HEIGHT_SIMULATION_AREA, adjacent_angle);
                          
                      }
                      y = SimulationParameters.HEIGHT_SIMULATION_AREA - opposite;
-                     if(y < 0)
-                         y = 0;
-                     if( y > 100 )
-                         y = SimulationParameters.HEIGHT_SIMULATION_AREA;
+                     
                      if(previous_angle_in_degree < 90 && previous_angle_in_degree > -90 )
-                         x = SimulationParameters.WIDTH_SIMULATION_AREA;
+                         x = SimulationParameters.WIDTH_SIMULATION_AREA;            
                      else
                          x = 0;
                      destination = new Point2D.Float(x,y);
@@ -132,9 +320,4 @@ public class RandomWalkHandler implements HandlerMethodI{
                     
                 }
             }
-     
-    }
-    
-}
-
-// The code here is not working ,  I am planning to write something thats easy and better
+*/
