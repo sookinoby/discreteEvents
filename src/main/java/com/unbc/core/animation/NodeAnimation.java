@@ -125,7 +125,7 @@ public class NodeAnimation {
         System.out.println("distanc left" + distance_left);
         x += speedX;
         y += speedY;
-        if (distance_left < 50)
+        if (distance_left < 5)
         {
            getNewPositonAndSpeed();
          
@@ -148,6 +148,13 @@ public class NodeAnimation {
       this.speedY = (float)(this.speed * (float)Math.sin(Math.toRadians(this.angleInDegree )));
          System.out.println("current position is (" + x + "," + y + ") destination (" + destination.x + "," + destination.y +")" );
         counter_of_states++;     
+     }
+     else {
+         this.x = x;
+         this.y = y;
+         this.speed  = 0;
+         this.speedX = 0;
+         this.speedY =  0;
      }
     
     }
