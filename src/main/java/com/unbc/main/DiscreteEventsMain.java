@@ -6,6 +6,7 @@
 
 package com.unbc.main;
 
+import com.unbc.core.animation.AnimationGlobals;
 import com.unbc.core.models.Event;
 import com.unbc.core.models.EventQueue;
 import com.unbc.core.models.MobilityType;
@@ -14,20 +15,26 @@ import com.unbc.core.models.NodeState;
 import java.awt.geom.Point2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.unbc.gui.MainJFrameGUI;
 
 /**
  *
  * @author sooki
  */
 public class DiscreteEventsMain {
-
+    public static Node nodes[];
     /**
      * @param args the command line arguments
      */
+    public static Node[] getAllNodes()
+    {
+        return nodes;
+    }
     public static void main(String[] args) {
+     
         // TODO code application logic her
-         Node nodes[] = new Node[SimulationParameters.NUMBER_OF_NODES+1];
-        for(int i=1; i < SimulationParameters.NUMBER_OF_NODES + 1; i++)
+       nodes = new Node[SimulationParameters.NUMBER_OF_NODES];
+        for(int i=0; i < SimulationParameters.NUMBER_OF_NODES; i++)
         {
             Node a = new Node("one", i);
             Point2D.Float current = new Point2D.Float(0.0f,0.0f);
@@ -36,15 +43,29 @@ public class DiscreteEventsMain {
                  state = new NodeState(a, current, NodeState.StateType.PASSIVE,1);
                  a.addState(state);
                  nodes[i] = a;
-                 Event e = new Event(0,0, a, state,MobilityType.RANDOMWALK);
+                 Event e = new Event(0,0, a, state,MobilityType.RANDOMWAYPOINT);
                  EventQueue.addEvent(e);
              } catch (Exception ex) {
                  Logger.getLogger(DiscreteEventsMain.class.getName()).log(Level.SEVERE, null, ex);
              }
             
         }
+        
+    
       SimulationInit.startSimulation();
+      while(true)
+      {
+      if(AnimationGlobals.animationCanRun == true)
+      {
+          System.out.println("Animation is starting");
+          MainJFrameGUI.startAnimation();
+          break;
+      }
+      }
+      
+      
     }
+    
     // this is a testcase for event queue
 //    public static void TestPriorityQueueInsertAndRetrival()
 //    {
@@ -74,4 +95,21 @@ public class DiscreteEventsMain {
 //        System.out.println("The third event has arrival time" + EventQueue.removeNextEvent().getNodeReference().getId());
 //    }
 //    
+    
+    /*
+    InputStream in = DiscreteEventsMain.class.getResourceAsStream("/newjson.json");
+        Reader      reader      = new InputStreamReader(in);
+
+        int data;
+        try {
+            data = reader.read();
+            while(data != -1){
+            char theChar = (char) data;
+                System.out.println("" + theChar);
+             data = reader.read();
+             }
+        } catch (IOException ex) {
+            Logger.getLogger(DiscreteEventsMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    */
 }

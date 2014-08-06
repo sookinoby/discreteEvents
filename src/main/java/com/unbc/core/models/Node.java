@@ -60,7 +60,7 @@ public class Node {
         nodestates.add(state);
     }
     
-   public ArrayList<NodeState> getAllStates(NodeState state)
+   public ArrayList<NodeState> getAllStates()
     {
         return nodestates;
     }

@@ -6,6 +6,8 @@
 
 package com.unbc.core.models;
 
+import com.unbc.core.animation.AnimationGlobals;
+
 /**
  *
  * @author sooki
@@ -27,6 +29,7 @@ public class Scheduler implements Runnable{
         }
         else {
             shouldRun = false;
+            AnimationGlobals.animationCanRun = true;
             System.out.println("The simulation has ended, no more Events to Process");
         }
        
