@@ -29,10 +29,9 @@ public class NodeState {
     private float velocity;
     private float angleInDegree;
     private StateType stateType;
-
-    
     private float pauseTime;
 
+     
     public NodeState(Node nodeReference, Point2D.Float currentPosition, Point2D.Float destination, float velocity,StateType stateType) {
         this.nodeReference = nodeReference;
         this.currentPosition = currentPosition;
@@ -53,6 +52,7 @@ public class NodeState {
             this.destination.setLocation(currentPosition.x+0.01, currentPosition.y+0.01);
             this.velocity = GeoMathFunctions.distanceBetWeenTwoPoint(this.currentPosition, this.destination)/pauseTime;
             this.angleInDegree = 0.0f;
+            this.pauseTime = pauseTime;
         }
        else if(stateType == StateType.ACTIVE)
         {

@@ -16,6 +16,7 @@ import java.awt.geom.Point2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.unbc.gui.MainJFrameGUI;
+import com.unbc.utils.RandomGenerator;
 
 /**
  *
@@ -37,7 +38,7 @@ public class DiscreteEventsMain {
         for(int i=0; i < SimulationParameters.NUMBER_OF_NODES; i++)
         {
             Node a = new Node("one", i);
-            Point2D.Float current = new Point2D.Float(0.0f,0.0f);
+            Point2D.Float current = RandomGenerator.getRandomPosition();
             NodeState state;
              try {
                  state = new NodeState(a, current, NodeState.StateType.PASSIVE,1);

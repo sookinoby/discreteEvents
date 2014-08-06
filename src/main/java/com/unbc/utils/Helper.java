@@ -6,6 +6,10 @@
 
 package com.unbc.utils;
 
+import com.unbc.main.SimulationInit;
+import com.unbc.main.SimulationParameters;
+import java.awt.geom.Point2D;
+
 /**
  *
  * @author sooki
@@ -15,6 +19,11 @@ public class Helper {
     public static boolean isNear(float x,float toCheck)
     {
         return Math.abs(x-toCheck) < 0.2;
+    }
+    
+    public static Point2D.Float normalisePoint(final Point2D.Float point)
+    {
+        return new Point2D.Float((float)point.getX() * SimulationParameters.PIXEL_TO_MOVE_X, (float)point.getY() * SimulationParameters.PIXEL_TO_MOVE_Y);
     }
     
 }

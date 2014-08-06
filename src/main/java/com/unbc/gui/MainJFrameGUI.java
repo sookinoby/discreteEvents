@@ -75,18 +75,18 @@ public class MainJFrameGUI extends JFrame implements WindowListener
     wp = new AnimationPanelGUI(this, period);
     c.add(wp, "Center");
 
-    JPanel ctrls = new JPanel();   // a row of textfields
-    ctrls.setLayout( new BoxLayout(ctrls, BoxLayout.X_AXIS));
-
-    jtfBox = new JTextField("Boxes");
-    jtfBox.setEditable(false);
-    ctrls.add(jtfBox);
-
-    jtfTime = new JTextField("Time");
-    jtfTime.setEditable(false);
-    ctrls.add(jtfTime);
-
-    c.add(ctrls, "South");
+//    JPanel ctrls = new JPanel();   // a row of textfields
+//    ctrls.setLayout( new BoxLayout(ctrls, BoxLayout.X_AXIS));
+//
+//    jtfBox = new JTextField("Boxes");
+//    jtfBox.setEditable(false);
+//    ctrls.add(jtfBox);
+//
+//    jtfTime = new JTextField("Time");
+//    jtfTime.setEditable(false);
+//    ctrls.add(jtfTime);
+//
+//    c.add(ctrls, "South");
   }  // end of makeGUI()
 
 

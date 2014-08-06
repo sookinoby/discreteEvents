@@ -6,13 +6,16 @@
 
 package com.unbc.core.animation;
 
+import com.unbc.core.models.*;
+import com.unbc.main.SimulationParameters;
+import com.unbc.utils.GeoMathFunctions;
+import com.unbc.utils.Helper;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-import java.util.Formatter;
-import com.unbc.core.models.*;
-import com.unbc.utils.GeoMathFunctions;
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -20,18 +23,22 @@ import java.util.ArrayList;
  */
 public class NodeAnimation {
    
-   private static int counter_of_states = 0; 
-   private static int total_number_states = 0;
+   private  int counter_of_states = 0; 
+   private  int total_number_states = 0;
    private Node reference;
    private ArrayList<NodeState> allStates;
-   private float x, y;           // Ball's center x and y (package access)
-   private float speedX, speedY; // Ball's speed per step in x and y (package access)
-   private float radius;         // Ball's radius (package access)
-   private float angleInDegree;
+   private float x, y;           // Node's state (associated with 'a' state)
+   private float speedX, speedY; // Node's speedX,SpeedY (associated with 'a' state)
+   private float radius;         // Node's Radius (associated with 'a' state)
+   private float angleInDegree;  // Node's angle in degree (associated with 'a' state)
+   private NodeState.StateType stateType;
    private float speed;
    protected Color color;  // Ball's color
    protected static Color DEFAULT_COLOR = Color.RED;
    private Point2D.Float destination;
+   private float pauseTime;
+   boolean record = false;
+   long start = 0 ;
    /**
     * Constructor: For user friendliness, user specifies velocity in speed and
     * moveAngle in usual Cartesian coordinates. Need to convert to speedX and
@@ -45,7 +52,6 @@ public class NodeAnimation {
       this.color = color;
       this.radius = 4;
       total_number_states = this.allStates.size();
-       System.out.println("total number of states" + total_number_states);
       getNewPositonAndSpeed();
      
     // System.out.println("mobility set" + moveType);
@@ -122,31 +128,67 @@ public class NodeAnimation {
         //System.out.println("reached here");
         float distance_left = (float) Point2D.distance(x,y, destination.getX(), destination.getY());
         //System.out.println("angle" + node.angleInDegree);
-        System.out.println("distanc left" + distance_left);
+       if(NodeState.StateType.PASSIVE == this.stateType)
+       {
+         
+        if(record == false)
+        {
+            record = true;
+            start = System.nanoTime();
+        }
+        else {
+             long current = System.nanoTime();
+             long difference = current-start;
+               x += 0;
+               y += 0;
+              long diff = TimeUnit.SECONDS.convert(difference, TimeUnit.NANOSECONDS);
+             if( diff > this.pauseTime)
+             {
+                 getNewPositonAndSpeed();
+                 record = false;
+             }
+        }
+       }
+       else{
         x += speedX;
         y += speedY;
-        if (distance_left < 5)
-        {
-           getNewPositonAndSpeed();
-         
-         }
         
+        
+        float distance_left_after = (float) Point2D.distance(x,y, destination.getX(), destination.getY());
+        if(distance_left < distance_left_after)
+        {
+            getNewPositonAndSpeed();
+        }
+           
+//       if(distance_left < distance_left_after)
+//       {
+//          // System.out.println("distance_left"+ distance_left);
+//         //  System.out.println("distance_left_after" + distance_left_after);
+//          // getNewPositonAndSpeed();
+//       }
+       }
     }
  
     private void getNewPositonAndSpeed()
     {
-        System.out.println("counter of states " + counter_of_states);
-        System.out.println("total number of states "  + total_number_states);
+     //   System.out.println("counter of states " + counter_of_states);
+     //   System.out.println("total number of states "  + total_number_states);
      if(counter_of_states < total_number_states)
      {
-      this.x = this.allStates.get(counter_of_states).getCurrentPosition().x;
-      this.y = this.allStates.get(counter_of_states).getCurrentPosition().y;
+      this.x = this.allStates.get(counter_of_states).getCurrentPosition().x * SimulationParameters.PIXEL_TO_MOVE_X;
+      this.y = this.allStates.get(counter_of_states).getCurrentPosition().y * SimulationParameters.PIXEL_TO_MOVE_Y;
+       
       this.destination = this.allStates.get(counter_of_states).getDestination();
+      this.destination = Helper.normalisePoint(destination);
       this.speed = this.allStates.get(counter_of_states).getVelocity();
       this.angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(new Point2D.Float(x, y), destination);
-      this.speedX = (float)(this.speed * Math.cos(Math.toRadians(this.angleInDegree )));
-      this.speedY = (float)(this.speed * (float)Math.sin(Math.toRadians(this.angleInDegree )));
-         System.out.println("current position is (" + x + "," + y + ") destination (" + destination.x + "," + destination.y +")" );
+      this.speedX = (float)(this.speed * Math.cos(Math.toRadians(this.angleInDegree ))) * SimulationParameters.PIXEL_TO_MOVE_X;
+      this.speedY = (float)(this.speed * (float)Math.sin(Math.toRadians(this.angleInDegree )))* SimulationParameters.PIXEL_TO_MOVE_Y;
+      this.stateType = this.allStates.get(counter_of_states).getStateType();
+      if(this.stateType == NodeState.StateType.PASSIVE)
+      {
+          this.pauseTime = this.allStates.get(counter_of_states).getPauseTime();
+      }
         counter_of_states++;     
      }
      else {
