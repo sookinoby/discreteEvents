@@ -50,7 +50,7 @@ import java.awt.event.*;
 
 public class MainJFrameGUI extends JFrame implements WindowListener
 {
-  private static int DEFAULT_FPS = 80;
+  private static int DEFAULT_FPS = 85;
 
   private AnimationPanelGUI wp;  
   private JTextField jtfBox;   // displays no.of boxes used
