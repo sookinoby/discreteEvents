@@ -13,6 +13,7 @@ import com.unbc.utils.Helper;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.concurrent.TimeUnit;
@@ -175,15 +176,17 @@ public class NodeAnimation {
      //   System.out.println("total number of states "  + total_number_states);
      if(counter_of_states < total_number_states)
      {
-      this.x = this.allStates.get(counter_of_states).getCurrentPosition().x * SimulationParameters.PIXEL_TO_MOVE_X;
-      this.y = this.allStates.get(counter_of_states).getCurrentPosition().y * SimulationParameters.PIXEL_TO_MOVE_Y;
        
+      this.x = this.allStates.get(counter_of_states).getCurrentPosition().x * SimulationParameters.PIXEL_TO_MOVE_X ;
+      this.y = this.allStates.get(counter_of_states).getCurrentPosition().y * SimulationParameters.PIXEL_TO_MOVE_Y;
+      
       this.destination = this.allStates.get(counter_of_states).getDestination();
       this.destination = Helper.normalisePoint(destination);
       this.speed = this.allStates.get(counter_of_states).getVelocity();
       this.angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(new Point2D.Float(x, y), destination);
-      this.speedX = (float)(this.speed * Math.cos(Math.toRadians(this.angleInDegree ))) * SimulationParameters.PIXEL_TO_MOVE_X;
-      this.speedY = (float)(this.speed * (float)Math.sin(Math.toRadians(this.angleInDegree )))* SimulationParameters.PIXEL_TO_MOVE_Y;
+      this.speedX = (float)(this.speed * Math.cos(Math.toRadians(this.angleInDegree ))) * SimulationParameters.PIXEL_TO_MOVE_X ;
+         System.out.println("speed" + speedX);
+      this.speedY = (float)(this.speed * (float)Math.sin(Math.toRadians(this.angleInDegree ))) * SimulationParameters.PIXEL_TO_MOVE_Y;
       this.stateType = this.allStates.get(counter_of_states).getStateType();
       if(this.stateType == NodeState.StateType.PASSIVE)
       {
