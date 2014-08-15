@@ -7,16 +7,18 @@
 package com.unbc.main;
 
 import com.unbc.core.animation.AnimationGlobals;
+import com.unbc.core.models.Destinations;
 import com.unbc.core.models.Event;
 import com.unbc.core.models.EventQueue;
 import com.unbc.core.models.MobilityType;
 import com.unbc.core.models.Node;
 import com.unbc.core.models.NodeState;
-import java.awt.geom.Point2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.unbc.gui.MainJFrameGUI;
 import com.unbc.utils.RandomGenerator;
+import java.awt.geom.Point2D;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,6 +37,11 @@ public class DiscreteEventsMain {
      
         // TODO code application logic her
        nodes = new Node[SimulationParameters.NUMBER_OF_NODES];
+       Destinations.initialiseDestinationFromJson();
+       List<Destinations> data = Destinations.getListAllDestination();
+       System.out.println(data.get(0).getDestinationName());
+       System.out.println(data.get(0).getPosition());
+       System.out.println(data.get(0).getProbablity()[0]);
         for(int i=0; i < SimulationParameters.NUMBER_OF_NODES; i++)
         {
             Node a = new Node("one", i);

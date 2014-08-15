@@ -17,6 +17,7 @@ public class Node {
     private int id;
     private ArrayList<NodeState> nodestates;
     private int groupId;
+    private NodeType node;
 
     public int getGroupId() {
         return groupId;
@@ -27,16 +28,21 @@ public class Node {
     }
 
      
-    public Node(String name, int id,int groupId) {
+    public Node(String name, int id,NodeType node,int groupId) {
         this.name = name;
         this.id = id;
         this.groupId = groupId;
         this.nodestates = new ArrayList<>();
+        this.node = node;
     }
     
      
     public Node(String name, int id) {
-      this(name,id,1);
+      this(name,id,NodeType.DEFAULT,1);
+    }
+    
+     public Node(String name, int id,NodeType type) {
+      this(name,id,type.DEFAULT,1);
     }
 
     public String getName() {
