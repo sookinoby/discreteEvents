@@ -1,0 +1,36 @@
+[
+{
+"_comment":"negative position will cause destination to be random. Destination should be in the range of Simulation area parameters. A maximum of 100 Destination is allowed. Home will always be the first destinationThe probablity is array of for visiting relative probablity  depending on the node type student,driver",
+"id":1,
+"destinationName":"CoffeeShop",
+"position": {
+		"x":10.5,
+		"y":20.0
+},
+"waitTime":2,
+"isHome":true,
+"probability":[30,25,5]
+},
+{
+"id":2,
+"destinationName":"Bus Stand",
+"position": {
+		"x":10.5,
+		"y":20.0
+},
+"waitTime":2,
+"isHome":false,
+"probability":[30,75,95]
+},
+{
+"id":3,
+"destinationName":"College",
+"position": {
+		"x":10.5,
+		"y":20.0
+},
+"waitTime":2,
+"isHome":false,
+"probability":[30,85,15]
+}
+]

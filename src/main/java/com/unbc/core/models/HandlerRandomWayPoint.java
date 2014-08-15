@@ -9,6 +9,7 @@ import com.unbc.main.*;
 import com.unbc.utils.GeoMathFunctions;
 import com.unbc.utils.Point;
 import com.unbc.utils.RandomGenerator;
+import com.unbc.utils.RandomSelector;
 import java.awt.geom.Point2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,7 +59,7 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
         }
         else{
         // this is for active events
-            Point destination = RandomGenerator.getRandomPosition();
+            Point destination = RandomSelector
             Float velocity = RandomGenerator.getVelocityFromNormalDistribution();
             state = new NodeState(a,current,destination,velocity);
             a.addState(state);

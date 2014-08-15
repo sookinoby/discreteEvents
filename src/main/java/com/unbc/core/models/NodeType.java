@@ -6,11 +6,14 @@
 
 package com.unbc.core.models;
 
+import com.unbc.utils.RandomSelector;
+
 /**
  *
  * @author chellads
  */
 public enum NodeType {
     DEFAULT,STUDENT,BUS_DRIVER;
+  
     
 }

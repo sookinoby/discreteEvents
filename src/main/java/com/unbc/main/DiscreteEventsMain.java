@@ -16,7 +16,7 @@ import com.unbc.core.models.NodeState;
 import com.unbc.gui.MainJFrameGUI;
 import com.unbc.utils.Point;
 import com.unbc.utils.RandomGenerator;
-import java.awt.geom.Point2D;
+import com.unbc.utils.RandomSelector;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +43,7 @@ public class DiscreteEventsMain {
        System.out.println(data.get(0).getDestinationName());
        System.out.println(data.get(0).getPosition());
        System.out.println(data.get(0).getProbablity()[0]);
+     
         for(int i=0; i < SimulationParameters.NUMBER_OF_NODES; i++)
         {
             Node a = new Node("one", i);
