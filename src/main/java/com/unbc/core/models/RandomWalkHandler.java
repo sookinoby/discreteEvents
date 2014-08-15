@@ -10,9 +10,9 @@ package com.unbc.core.models;
 import com.unbc.main.SimulationParameters;
 import com.unbc.utils.GeoMathFunctions;
 import com.unbc.utils.Helper;
+import com.unbc.utils.Point;
 import com.unbc.utils.RandomGenerator;
-import java.awt.geom.Point2D;
-import sun.java2d.loops.GraphicsPrimitive;
+
 
 /**
  *
@@ -39,9 +39,9 @@ public class RandomWalkHandler implements HandlerMethodI{
         // random walks dont not have passive states
             Node a = previous.getNodeReference();
             float arrivalTime = previous.getFinishTime();
-            Point2D.Float current = previous.getStateReference().getDestination();
+            Point current = previous.getStateReference().getDestination();
             NodeState state;
-            Point2D.Float destination = null;
+            Point destination = null;
             if(previous.getStateReference().getStateType() == NodeState.StateType.PASSIVE)
             {
         // this is for active events
@@ -55,7 +55,7 @@ public class RandomWalkHandler implements HandlerMethodI{
              destination = RandomGenerator.getRandomPositionAlongY();
             } */
                 // these edit for made for checking. by sooki
-            destination = new Point2D.Float(20,100);
+            destination = new Point(20,100);
             Float velocity = RandomGenerator.getVelocityFromNormalDistribution();
             state = new NodeState(a,current,destination,velocity);
             a.addState(state);
@@ -83,10 +83,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                           {   
                             adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, abs_previous_angle);
-                            destination = new Point2D.Float(x+adjacentX,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                            destination = new Point(x+adjacentX,SimulationParameters.HEIGHT_SIMULATION_AREA);
                           }
                           else{
-                                destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,opposite);
+                                destination = new Point(SimulationParameters.WIDTH_SIMULATION_AREA,opposite);
                           }
                      }
                         // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
@@ -99,10 +99,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                           {   
                             adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, calculated);
-                            destination = new Point2D.Float(x-adjacentX,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                            destination = new Point(x-adjacentX,SimulationParameters.HEIGHT_SIMULATION_AREA);
                           }
                           else{
-                                destination = new Point2D.Float(0,opposite);
+                                destination = new Point(0,opposite);
                           }
                      }
                           
@@ -123,10 +123,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                           {   
                             adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, abs_previous_angle);
-                            destination = new Point2D.Float(x+adjacentX,0);
+                            destination = new Point(x+adjacentX,0);
                           }
                           else{
-                                destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,SimulationParameters.HEIGHT_SIMULATION_AREA-opposite);
+                                destination = new Point(SimulationParameters.WIDTH_SIMULATION_AREA,SimulationParameters.HEIGHT_SIMULATION_AREA-opposite);
                           }
                      }
                         // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
@@ -139,10 +139,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                           {   
                             adjacentX = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, calculated);
-                            destination = new Point2D.Float(x-adjacentX,0);
+                            destination = new Point(x-adjacentX,0);
                           }
                           else{
-                                destination = new Point2D.Float(SimulationParameters.HEIGHT_SIMULATION_AREA-opposite,0);
+                                destination = new Point(SimulationParameters.HEIGHT_SIMULATION_AREA-opposite,0);
                           }
                      }
                           
@@ -164,10 +164,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.WIDTH_SIMULATION_AREA)
                           {   
                             adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.WIDTH_SIMULATION_AREA, calculated);
-                            destination = new Point2D.Float(SimulationParameters.WIDTH_SIMULATION_AREA,y+adjacentY);
+                            destination = new Point(SimulationParameters.WIDTH_SIMULATION_AREA,y+adjacentY);
                           }
                           else{
-                                destination = new Point2D.Float(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                                destination = new Point(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
                           }
                      }
                         // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
@@ -180,10 +180,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.WIDTH_SIMULATION_AREA)
                           {   
                             adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.WIDTH_SIMULATION_AREA, calculated);
-                            destination = new Point2D.Float(SimulationParameters.HEIGHT_SIMULATION_AREA,y-adjacentY);
+                            destination = new Point(SimulationParameters.HEIGHT_SIMULATION_AREA,y-adjacentY);
                           }
                           else{
-                                destination = new Point2D.Float(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                                destination = new Point(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
                           }
                      }
                           
@@ -204,10 +204,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                           {   
                             adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, abs_previous_angle);
-                            destination = new Point2D.Float(0,y + adjacentY);
+                            destination = new Point(0,y + adjacentY);
                           }
                           else{
-                                destination = new Point2D.Float(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
+                                destination = new Point(opposite,SimulationParameters.HEIGHT_SIMULATION_AREA);
                           }
                      }
                         // check if mobile node is going up and moving toward second qudarant. Please remember the quadrant is inverted
@@ -220,10 +220,10 @@ public class RandomWalkHandler implements HandlerMethodI{
                           if(opposite > SimulationParameters.HEIGHT_SIMULATION_AREA)
                           {   
                             adjacentY = GeoMathFunctions.findAdjacentUsingOpposite(SimulationParameters.HEIGHT_SIMULATION_AREA, calculated);
-                            destination = new Point2D.Float(0,y-adjacentY);
+                            destination = new Point(0,y-adjacentY);
                           }
                           else{
-                                destination = new Point2D.Float(0,SimulationParameters.WIDTH_SIMULATION_AREA-opposite);
+                                destination = new Point(0,SimulationParameters.WIDTH_SIMULATION_AREA-opposite);
                           }
                      }
                           

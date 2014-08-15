@@ -10,7 +10,6 @@ import cern.jet.random.Normal;
 import cern.jet.random.engine.DRand;
 import cern.jet.random.engine.RandomEngine;
 import com.unbc.main.SimulationParameters;
-import java.awt.geom.Point2D;
 import java.util.Random;
 
 /**
@@ -20,14 +19,14 @@ import java.util.Random;
 public class RandomGenerator {
     
     
-    public static Point2D.Float getRandomPosition()
+    public static Point getRandomPosition()
     {
         Random ran = new Random();
         
         int x = ran.nextInt(SimulationParameters.WIDTH_SIMULATION_AREA+1);
         ran = new Random();
         int y = ran.nextInt(SimulationParameters.HEIGHT_SIMULATION_AREA+1);
-        return new Point2D.Float((float)x, (float)y);
+        return new Point((float)x, (float)y);
     }
     public static float getVelocityFromNormalDistribution()
     {
@@ -38,7 +37,7 @@ public class RandomGenerator {
         return velocity;
     }
     
-    public static Point2D.Float getRandomPositionAlongX()
+    public static Point getRandomPositionAlongX()
     {
         Random ran = new Random();
         
@@ -49,9 +48,9 @@ public class RandomGenerator {
             y = SimulationParameters.HEIGHT_SIMULATION_AREA;
         else
             y=0;
-        return new Point2D.Float((float)x, (float)y);
+        return new Point((float)x, (float)y);
     }
-        public static Point2D.Float getRandomPositionAlongY()
+        public static Point getRandomPositionAlongY()
     {
         Random ran = new Random();
         
@@ -62,7 +61,7 @@ public class RandomGenerator {
             x = SimulationParameters.WIDTH_SIMULATION_AREA;
         else
             x = 0;
-        return new Point2D.Float((float)x, (float)y);
+        return new Point((float)x, (float)y);
     }
     
      public static int getRandomNumberBetweenZeroAndX(int x)

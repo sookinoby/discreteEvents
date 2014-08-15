@@ -10,10 +10,10 @@ import com.unbc.core.models.*;
 import com.unbc.main.SimulationParameters;
 import com.unbc.utils.GeoMathFunctions;
 import com.unbc.utils.Helper;
+import com.unbc.utils.Point;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.concurrent.TimeUnit;
@@ -36,7 +36,7 @@ public class NodeAnimation {
    private float speed;
    protected Color color;  // Ball's color
    protected static Color DEFAULT_COLOR = Color.RED;
-   private Point2D.Float destination;
+   private Point destination;
    private float pauseTime;
    boolean record = false;
    long start = 0 ;
@@ -183,7 +183,7 @@ public class NodeAnimation {
       this.destination = this.allStates.get(counter_of_states).getDestination();
       this.destination = Helper.normalisePoint(destination);
       this.speed = this.allStates.get(counter_of_states).getVelocity();
-      this.angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(new Point2D.Float(x, y), destination);
+      this.angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(new Point(x, y), destination);
       this.speedX = (float)(this.speed * Math.cos(Math.toRadians(this.angleInDegree ))) * SimulationParameters.PIXEL_TO_MOVE_X ;
          System.out.println("speed" + speedX);
       this.speedY = (float)(this.speed * (float)Math.sin(Math.toRadians(this.angleInDegree ))) * SimulationParameters.PIXEL_TO_MOVE_Y;

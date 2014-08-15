@@ -7,6 +7,7 @@
 package com.unbc.core.models;
 
 import com.unbc.utils.GeoMathFunctions;
+import com.unbc.utils.Point;
 import java.awt.geom.Point2D;
 
 /**
@@ -24,32 +25,33 @@ public class NodeState {
     }
     
     private Node nodeReference;
-    private Point2D.Float currentPosition;
-    private Point2D.Float destination;
+    private Point currentPosition;
+    private Destinations destinationInfo;
+    private Point destination; 
     private float velocity;
     private float angleInDegree;
     private StateType stateType;
     private float pauseTime;
 
      
-    public NodeState(Node nodeReference, Point2D.Float currentPosition, Point2D.Float destination, float velocity,StateType stateType) {
+    public NodeState(Node nodeReference, Point currentPosition, Point destination, float velocity,StateType stateType,float pauseTime) {
         this.nodeReference = nodeReference;
         this.currentPosition = currentPosition;
         this.destination = destination;
         this.velocity = velocity;
         this.stateType = stateType;
-        
+        this.pauseTime = pauseTime;
     }
 
-    public NodeState(Node nodeReference, Point2D.Float currentPosition, Point2D.Float destination, float velocity) {
-       this(nodeReference,currentPosition,destination,velocity,StateType.ACTIVE);
+    public NodeState(Node nodeReference, Point currentPosition, Point destination, float velocity) {
+       this(nodeReference,currentPosition,destination,velocity,StateType.ACTIVE,0);
        angleInDegree = GeoMathFunctions.angleBetweenPointsInDegree(this.currentPosition,this.destination);
     }
-     public NodeState(Node nodeReference, Point2D.Float currentPosition,StateType stateType,float pauseTime ) throws Exception {
-       this(nodeReference,currentPosition,new Point2D.Float(),0.0f,stateType);
+     public NodeState(Node nodeReference, Point currentPosition,StateType stateType,float pauseTime ) throws Exception {
+       this(nodeReference,currentPosition,new Point(),0.0f,stateType,pauseTime);
        if(stateType == StateType.PASSIVE)
         {
-            this.destination.setLocation(currentPosition.x+0.01, currentPosition.y+0.01);
+            this.destination.setLocation(currentPosition.x+0.01f, currentPosition.y+0.01f);
             this.velocity = GeoMathFunctions.distanceBetWeenTwoPoint(this.currentPosition, this.destination)/pauseTime;
             this.angleInDegree = 0.0f;
             this.pauseTime = pauseTime;
@@ -84,19 +86,19 @@ public class NodeState {
         this.nodeReference = nodereference;
     }
 
-    public Point2D.Float getCurrentPosition() {
+    public Point getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setCurrentPosition(Point2D.Float currentPosition) {
+    public void setCurrentPosition(Point currentPosition) {
         this.currentPosition = currentPosition;
     }
 
-    public Point2D.Float getDestination() {
+    public Point getDestination() {
         return destination;
     }
 
-    public void setDestination(Point2D.Float destination) {
+    public void setDestination(Point destination) {
         this.destination = destination;
     }
 

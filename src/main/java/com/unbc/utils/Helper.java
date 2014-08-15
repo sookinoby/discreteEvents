@@ -21,9 +21,9 @@ public class Helper {
         return Math.abs(x-toCheck) < 0.2;
     }
     
-    public static Point2D.Float normalisePoint(final Point2D.Float point)
+    public static Point normalisePoint(Point point)
     {
-        return new Point2D.Float((float)point.getX() * SimulationParameters.PIXEL_TO_MOVE_X, (float)point.getY() * SimulationParameters.PIXEL_TO_MOVE_Y);
+        return new Point((float)point.getX() * SimulationParameters.PIXEL_TO_MOVE_X, (float)point.getY() * SimulationParameters.PIXEL_TO_MOVE_Y);
     }
     
 }

@@ -13,7 +13,7 @@ import java.awt.geom.Point2D;
  * @author sooki
  */
 public class GeoMathFunctions {
-      public static float angleBetweenPointsInDegree(Point2D.Float p, Point2D.Float q)
+      public static float angleBetweenPointsInDegree(Point p, Point q)
     {
        float deltaY = q.y - p.y;
        float deltaX = q.x - p.x;
@@ -21,7 +21,7 @@ public class GeoMathFunctions {
 
     }
       
-    public static float distanceBetWeenTwoPoint(Point2D.Float currentPosition, Point2D.Float destination)
+    public static float distanceBetWeenTwoPoint(Point currentPosition, Point destination)
     {
         return (float) Point2D.distance(currentPosition.x, currentPosition.y, destination.x,destination.y);
 

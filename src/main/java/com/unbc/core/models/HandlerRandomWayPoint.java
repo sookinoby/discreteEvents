@@ -7,6 +7,7 @@
 package com.unbc.core.models;
 import com.unbc.main.*;
 import com.unbc.utils.GeoMathFunctions;
+import com.unbc.utils.Point;
 import com.unbc.utils.RandomGenerator;
 import java.awt.geom.Point2D;
 import java.util.logging.Level;
@@ -35,7 +36,7 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
         // Write code for passive event where the node remains stationary
            float arrivalTime = previous.getFinishTime();
             Node a = previous.getNodeReference();
-            Point2D.Float current = previous.getStateReference().getDestination();
+            Point current = previous.getStateReference().getDestination();
             NodeState state;
         if(previous.getStateReference().getStateType() == NodeState.StateType.ACTIVE)
         {
@@ -57,7 +58,7 @@ public class HandlerRandomWayPoint implements HandlerMethodI{
         }
         else{
         // this is for active events
-            Point2D.Float destination = RandomGenerator.getRandomPosition();
+            Point destination = RandomGenerator.getRandomPosition();
             Float velocity = RandomGenerator.getVelocityFromNormalDistribution();
             state = new NodeState(a,current,destination,velocity);
             a.addState(state);
