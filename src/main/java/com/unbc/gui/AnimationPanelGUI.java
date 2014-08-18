@@ -308,7 +308,7 @@ public class AnimationPanelGUI extends JPanel implements Runnable
      {
         anim.draw(dbg);
      }
-
+      Destinations.draw(dbg);
     if (gameOver)
       gameOverMessage(dbg);
   }  // end of gameRender()
@@ -321,7 +321,7 @@ public class AnimationPanelGUI extends JPanel implements Runnable
 	int x = (PWIDTH - metrics.stringWidth(msg))/2; 
 	int y = (PHEIGHT - metrics.getHeight())/2;
 	g.setColor(Color.red);
-    g.setFont(font);
+        g.setFont(font);
 	g.drawString(msg, x, y);
   }  // end of gameOverMessage()
 

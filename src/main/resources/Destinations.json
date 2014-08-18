@@ -4,8 +4,8 @@
 "id":1,
 "destinationName":"CoffeeShop",
 "position": {
-		"x":10.5,
-		"y":20.0
+		"x":50.5,
+		"y":85.0
 },
 "waitTime":2,
 "isHome":true,
@@ -15,8 +15,8 @@
 "id":2,
 "destinationName":"Bus Stand",
 "position": {
-		"x":10.5,
-		"y":20.0
+		"x":10,
+		"y":240.0
 },
 "waitTime":2,
 "isHome":false,
@@ -26,11 +26,47 @@
 "id":3,
 "destinationName":"College",
 "position": {
-		"x":10.5,
-		"y":20.0
+		"x":340.5,
+		"y":460.0
 },
 "waitTime":2,
 "isHome":false,
 "probability":[30,85,15]
+},
+{
+"id":4,
+"destinationName":"Bus stand 2",
+"position": {
+		"x":500.5,
+		"y":500.0
+},
+"waitTime":2,
+"isHome":false,
+"probability":[30,85,95]
+},
+{
+"id":5,
+"destinationName":"Chruch",
+"position": {
+		"x":250.5,
+		"y":600.0
+},
+"waitTime":2,
+"isHome":false,
+"probability":[30,25,40]
+},
+{
+"id":5,
+"destinationName":"Aquatic Center",
+"position": {
+		"x":600.5,
+		"y":600.0
+},
+"waitTime":2,
+"isHome":false,
+"probability":[30,65,30]
 }
+
+
+
 ]

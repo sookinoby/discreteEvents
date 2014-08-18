@@ -8,6 +8,7 @@ package com.unbc.utils;
 
 import com.unbc.core.models.Destinations;
 import com.unbc.core.models.NodeType;
+import java.time.Clock;
 import java.util.List;
 import java.util.Random;
 
@@ -17,25 +18,28 @@ import java.util.Random;
  */
 public class RandomSelector {
     List<Destinations> listOfDestinations;
-    Random rand = new Random();
+   
     int totalSum = 0;
     NodeType type;
-
+    Random rand;
     RandomSelector(List<Destinations> listOfDestinations,NodeType type ) {
+        rand = new Random();
         this.listOfDestinations = listOfDestinations;
         this.type = type;
         for(Destinations des : listOfDestinations) {
             totalSum = totalSum + des.getProbablity()[type.ordinal()];
         }
+        
     }
 
     public Destinations getRandom() {
-
+        
         int index = rand.nextInt(totalSum);
+       
         int sum = 0;
-        int i=0;
-        while(sum < index ) {
-             sum = sum + listOfDestinations.get(i++).getProbablity()[type.ordinal()];
+        int i = 0;
+        while(sum <= index ) {
+             sum = sum + listOfDestinations.get(i++).getProbablity()[type.ordinal()];                      
         }
         return listOfDestinations.get(i-1);
     }

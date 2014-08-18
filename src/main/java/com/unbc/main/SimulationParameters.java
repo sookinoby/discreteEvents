@@ -12,11 +12,11 @@ package com.unbc.main;
  */
 public class SimulationParameters {
     
-    public static final int NUMBER_OF_NODES = 40;
-    public static final float TIME_OF_SIMULATION = 900;
+    public static final int NUMBER_OF_NODES = 1;
+    public static final float TIME_OF_SIMULATION = 2000;
     public static final int HEIGHT_SIMULATION_AREA = 800;
     public static final int WIDTH_SIMULATION_AREA = 800;
-    public static final float VELOCITY_MEAN = 1f;
+    public static final float VELOCITY_MEAN = 7f;
     public static final int VELOCITY_VARIANCE = 0;
     public static final int WINDOW_SIZE_WIDTH = 600;
     public static final int WINDOW_SIZE_HEIGHT = 600;
